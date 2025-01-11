@@ -22,11 +22,14 @@ const XStates = () => {
 
     useEffect(() => {
         const countryList = async () => {
-            const response = await fetch(countryURL);
+           try{ const response = await fetch(countryURL);
             //console.log(response);
            const responseData = await response.json();
           console.log(responseData);
             setCountry(responseData);
+           } catch(error){
+            console.log("Error fetching data: ", error);
+           }
         }
         countryList();
     }, [])
@@ -36,22 +39,29 @@ const XStates = () => {
         setSelectedCity("");
 
         const stateList = async () => {
-            const response = await fetch(stateURL);
+            try{const response = await fetch(stateURL);
             //console.log(response);
            const responseData = await response.json();
           console.log(responseData);
           setState(responseData);
+            }catch(error){
+                console.log("Error fetching data: ", error)
+            }
         }
         stateList();
     }, [selectedCountry])
 
     useEffect(() => {
         const cityList = async () => {
+            try{
             const response = await fetch(cityURL);
             //console.log(response);
            const responseData = await response.json();
           console.log(responseData);
           setCity(responseData);
+            }catch(error){
+                console.log("Error fetching data: ",error)
+            }
         }
         cityList();
     }, [selectedState])
